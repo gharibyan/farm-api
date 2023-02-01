@@ -46,6 +46,5 @@ export class EnvironmentVariables {
   public JWT_EXPIRES_AT: number;
 
   @IsString()
-  @IsNotEmpty()
   public GOOGLE_MAPS_API_KEY : string;
 }
