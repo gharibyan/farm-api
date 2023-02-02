@@ -107,3 +107,8 @@ _Add API that supports following requirements:_
 <br/>
 <br/>
 <br/>
+
+## Task results
+
+1. For checking Small code exercises please run `npm run scripts:excersies`
+2. For generating 4 user and 30 farms each please run `npm run scripts:createuser`

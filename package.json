@@ -13,7 +13,9 @@
     "migration:run": "npm run typeorm migration:run",
     "migration:revert": "npm run typeorm migration:revert",
     "migration:create": "typeorm migration:create ./src/modules/$npm_config_path/migrations/$npm_config_name",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "scripts:createuser": "node ./scripts/create-users-farms.js",
+    "scripts:excersies": "node ./scripts/exercises.js"
   },
   "author": "Agreena",
   "license": "ISC",
@@ -32,6 +34,7 @@
     "typeorm": "^0.3.10"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
     "@types/bcrypt": "^5.0.0",
     "@types/express": "^4.17.14",
     "@types/geojson": "^7946.0.10",
