@@ -28,10 +28,10 @@ const createFarm = async (queryRunner, user) =>{
   const coordinates = faker.address.nearbyGPSCoordinate([37.6000, -95.6650], 3881, true)
   const [lat, lng] = coordinates
   const size =  faker.random.numeric(2)
-  const yield =  faker.random.numeric(1)
+  const yieldValue =  faker.random.numeric(1)
   return queryRunner.query(
     `INSERT INTO "farm" ("userId", "name", "address", "coordinates", "size", "yield") VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-    [user.id, farmName, farmAddress, `(${lng}, ${lat})`, size, yield]
+    [user.id, farmName, farmAddress, `(${lng}, ${lat})`, size, yieldValue]
   )
 
 }
@@ -40,9 +40,14 @@ const createUserAndFarms = async (queryRunner) => {
   for(let i = 0; i < NUMBER_OF_USERS; i++){
     const email = faker.internet.email()
     const password = await hashPassword(email.split('@')[0].toLowerCase())
+    console.time(`user created: ${email}`)
     const [user] = await queryRunner.query('INSERT INTO "user" ("email", "hashedPassword") VALUES ($1, $2) RETURNING *', [email, password])
+    console.timeEnd(`user created ${email}`)
     for(let x = 0; x  < NUMBER_OF_FARMS; x++){
-        await createFarm(queryRunner, user)
+      const n = x+1
+      console.time(`user:${email} farm ${n} created`)
+      await createFarm(queryRunner, user)
+      console.timeEnd(`user:${email} farm ${n} created`)
     }
   }
 }
