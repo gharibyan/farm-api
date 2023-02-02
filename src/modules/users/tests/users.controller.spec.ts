@@ -39,13 +39,16 @@ describe("UsersController", () => {
     const createUserDto: CreateUserDto = { email: "user@test.com", password: "password" };
 
     it("should create new user", async () => {
-      const res = await agent.post("/api/users").send(createUserDto);
+      const res = await agent.post("/api/v1/users").send(createUserDto);
 
       expect(res.statusCode).toBe(201);
       expect(res.body).toMatchObject({
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         id: expect.any(String),
         email: expect.stringContaining(createUserDto.email) as string,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         createdAt: expect.any(String),
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         updatedAt: expect.any(String),
       });
     });
@@ -53,7 +56,7 @@ describe("UsersController", () => {
     it("should throw UnprocessableEntityError if user already exists", async () => {
       await usersService.createUser(createUserDto);
 
-      const res = await agent.post("/api/users").send(createUserDto);
+      const res = await agent.post("/api/v1/users").send(createUserDto);
 
       expect(res.statusCode).toBe(422);
       expect(res.body).toMatchObject({

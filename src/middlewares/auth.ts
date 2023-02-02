@@ -30,7 +30,7 @@ class AuthMiddleware{
     }
 
     @boundMethod
-    async verifyToken(req: Request, _: Response, next: NextFunction){
+    public async verifyToken(req: Request, _: Response, next: NextFunction){
         const token = req.headers.authorization ? req.headers.authorization.replace("Bearer", "").trim() : null
         if (!token) {
             return next(noTokenProvided)
