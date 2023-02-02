@@ -21,6 +21,20 @@ export class FarmsController {
   }
 
   @boundMethod
+  public async getAllFarms(req: Request, res: Response){
+    const { address, outlined } = req.query
+    const data = {
+      address,
+      outlined
+    } as  {
+      outlined?: boolean,
+      address?: string
+    }
+    const farms = await this.farmService.getFarms(data)
+    res.status(200).send(farms)
+  }
+
+  @boundMethod
   public async delete(req: Request, res: Response) {
     const { farmId } = req.params
     await this.farmService.deleteFarm(

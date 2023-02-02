@@ -5,6 +5,7 @@ import { wrapAsyncHandler } from "helpers/utils"
 const router = Router();
 const farmsController = new FarmsController();
 
+router.get("/", [authMiddleware.verifyToken, wrapAsyncHandler(farmsController.getAllFarms)])
 router.post("/", [authMiddleware.verifyToken, wrapAsyncHandler(farmsController.create)]);
 router.delete("/:farmId", [authMiddleware.verifyToken, wrapAsyncHandler(farmsController.delete)])
 

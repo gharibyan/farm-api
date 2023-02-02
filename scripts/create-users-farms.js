@@ -25,11 +25,13 @@ const hashPassword = async (password, saltRounds = parsed.SALT_ROUNDS) => {
 const createFarm = async (queryRunner, user) =>{
   const farmName = faker.random.word()
   const farmAddress = faker.address.streetAddress(true)
-  const lat = faker.address.latitude()
-  const lng = faker.address.longitude()
+  const coordinates = faker.address.nearbyGPSCoordinate([37.6000, -95.6650], 3881, true)
+  const [lat, lng] = coordinates
+  const size =  faker.random.numeric(2)
+  const yield =  faker.random.numeric(1)
   return queryRunner.query(
-    `INSERT INTO "farm" ("userId", "name", "address", "coordinates") VALUES ($1, $2, $3, $4) RETURNING *`,
-    [user.id, farmName, farmAddress, `(${lng}, ${lat})`]
+    `INSERT INTO "farm" ("userId", "name", "address", "coordinates", "size", "yield") VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
+    [user.id, farmName, farmAddress, `(${lng}, ${lat})`, size, yield]
   )
 
 }

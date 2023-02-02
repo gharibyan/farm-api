@@ -1,13 +1,9 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { User } from "../../users/entities/user.entity";
 
-@Entity()
-export class Farm {
+export class Base {
   @PrimaryGeneratedColumn("uuid")
   public readonly id: string;
-
-  @ManyToOne(() => User)
-  public user: User;
 
   @Column()
   public userId: string
@@ -17,9 +13,6 @@ export class Farm {
 
   @Column()
   public address: string;
-
-  @Column("point")
-  public coordinates: string;
 
   @Column({nullable: true})
   public yield: number
@@ -35,4 +28,33 @@ export class Farm {
 
   @UpdateDateColumn()
   public updatedAt: Date;
+}
+
+@Entity()
+export class Farm extends Base{
+  @ManyToOne(() => User)
+  public user: User;
+
+  @Column("point")
+  public coordinates: string | object
+}
+
+export class FarmWithDistance extends Base{
+
+  public distance?: null | {
+    text: string,
+    value: number
+  }
+
+  public user? : {
+    email: string
+  }
+
+  public owner? : string
+
+  public coordinates?: {
+    x: number,
+    y: number
+  }
+
 }
