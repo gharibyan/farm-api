@@ -88,7 +88,18 @@ describe("FarmController", () => {
   });
 
   describe("Should Delete Farm", () => {
-    it("create authorize user and create farm", async ()=>{
+    it("Should not allow delete farm cuz user is incorrect for safety error will be 404", async ()=>{
+      const createUserDto: CreateUserDto = { email: "user3@test.com", password: "password" };
+      await usersService.createUser(createUserDto);
+      const authRes = await agent.post("/api/v1/auth/login").send(createUserDto);
+      const farmRes = await agent
+        .delete(`/api/v1/farms/${farmId}`)
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        .set({ Authorization: `Bearer ${authRes.body.token!}` })
+
+      expect(farmRes.status).toBe(404)
+    })
+    it("Should delete farm", async ()=>{
       const farmRes = await agent
         .delete(`/api/v1/farms/${farmId}`)
         .set({ Authorization: `Bearer ${token!}` })

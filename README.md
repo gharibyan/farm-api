@@ -112,3 +112,4 @@ _Add API that supports following requirements:_
 
 1. For checking Small code exercises please run `npm run scripts:excersies`
 2. For generating 4 user and 30 farms each please run `npm run scripts:createuser` it will generate fake users and fake farms with `faker.js`
+3. For using address search and distance matrix i'm using google service please set `GOOGLE_MAPS_API_KEY` in `.env` file for testing i'm mocking response to avoid do extra calls to google service
