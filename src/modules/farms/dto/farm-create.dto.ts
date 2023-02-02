@@ -10,8 +10,8 @@ export class FarmCreateDto {
   public name: string;
 
   @IsNumber()
-  public yieldValue: number
+  public yieldValue?: number
 
   @IsNumber()
-  public size: number
+  public size?: number
 }

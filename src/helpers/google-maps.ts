@@ -20,7 +20,7 @@ export const getAddressData = async (address: string): Promise<null | AddressRes
     }
   })
   const addressData = geocodeResponse.data.results[0]
-  return addressData ?{
+  return addressData ? {
     address: addressData?.formatted_address,
     coordinates: addressData?.geometry?.location
   } : null
